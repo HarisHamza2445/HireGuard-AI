@@ -64,7 +64,7 @@ ${JSON.stringify(summarizedCandidates, null, 2)}
 
     try {
         const response = await openai.chat.completions.create({
-            model: "mistralai/mistral-7b-instruct:free",
+            model: process.env.AI_MODEL || "google/gemma-2-9b-it:free",
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: userMessage },
