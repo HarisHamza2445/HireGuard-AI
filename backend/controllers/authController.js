@@ -99,7 +99,10 @@ export const getProfile = async (req, res) => {
                 role: user.role
             });
         } else {
-            res.status(404).json({ success: false, message: 'User profile not found' });
+            res.status(401).json({ 
+                success: false, 
+                message: 'User identity not found in database. Your session may be from a different database. Please log out and register a new account.' 
+            });
         }
     } catch (error) {
         console.error('Profile Fetch Error:', error);

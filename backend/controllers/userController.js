@@ -20,7 +20,10 @@ export const getUserProfile = async (req, res) => {
                 }
             });
         } else {
-            res.status(404).json({ success: false, message: 'User profile not found' });
+            res.status(401).json({ 
+                success: false, 
+                message: 'User identity not found in database. Your session may be from a different database. Please log out and register a new account.' 
+            });
         }
     } catch (error) {
         console.error('Fetch Profile Error:', error);
@@ -55,7 +58,10 @@ export const updateUserProfile = async (req, res) => {
                 }
             });
         } else {
-            res.status(404).json({ success: false, message: 'User not found' });
+            res.status(401).json({ 
+                success: false, 
+                message: 'User identity not found. Please log out and register a new account.' 
+            });
         }
     } catch (error) {
         console.error('Update Profile Error:', error);
@@ -74,7 +80,10 @@ export const updateUserPassword = async (req, res) => {
         const user = await User.findById(req.user.id).select('+password');
 
         if (!user) {
-            return res.status(404).json({ success: false, message: 'User not found' });
+            return res.status(401).json({ 
+                success: false, 
+                message: 'User identity not found. Please log out and register a new account.' 
+            });
         }
 
         // Check if current password matches
@@ -106,7 +115,10 @@ export const updateUserPassword = async (req, res) => {
 export const getApiKeys = async (req, res) => {
     try {
         const user = await User.findById(req.user.id);
-        if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+        if (!user) return res.status(401).json({ 
+            success: false, 
+            message: 'User identity not found. Please log out and register a new account.' 
+        });
 
         res.status(200).json({ success: true, apiKeys: user.apiKeys });
     } catch (error) {
@@ -121,7 +133,10 @@ export const getApiKeys = async (req, res) => {
 export const generateApiKey = async (req, res) => {
     try {
         const user = await User.findById(req.user.id);
-        if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+        if (!user) return res.status(401).json({ 
+            success: false, 
+            message: 'User identity not found. Please log out and register a new account.' 
+        });
 
         const { name } = req.body;
         if (!name) return res.status(400).json({ success: false, message: 'Please provide a name for the API key' });
@@ -159,7 +174,10 @@ export const generateApiKey = async (req, res) => {
 export const revokeApiKey = async (req, res) => {
     try {
         const user = await User.findById(req.user.id);
-        if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+        if (!user) return res.status(401).json({ 
+            success: false, 
+            message: 'User identity not found. Please log out and register a new account.' 
+        });
 
         const keyId = req.params.keyId;
 
