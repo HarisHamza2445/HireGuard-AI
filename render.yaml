@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: hireguard-ai
+    env: node
+    plan: free
+    buildCommand: npm run build && cd backend && npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+        placeholder: "Enter your MongoDB Atlas Connection String"
+      - key: OPENAI_API_KEY
+        sync: false
+        placeholder: "Enter your OpenAI/OpenRouter API Key"
+      - key: JWT_SECRET
+        sync: false
+        placeholder: "Enter a strong JWT Secret"
+      - key: PORT
+        value: 10000

@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import path from "path";
+import { fileURLToPath } from "url";
 import verifyRoutes from "./routes/verifyRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import candidateRoutes from "./routes/candidateRoutes.js";
@@ -10,6 +12,9 @@ import chatRoutes from "./routes/chatRoutes.js";
 import interviewRoutes from "./routes/interviewRoutes.js";
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -38,6 +43,17 @@ app.use("/api/candidates", candidateRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/interview", interviewRoutes);
+
+// --- Deployment Logic: Serve Frontend Static Files ---
+if (process.env.NODE_ENV === "production") {
+    const frontendPath = path.join(__dirname, "../frontend/dist");
+    app.use(express.static(frontendPath));
+
+    // For any request that doesn't match an API route, serve index.html
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(frontendPath, "index.html"));
+    });
+}
 
 // Global Error Handler
 app.use((err, req, res, next) => {
