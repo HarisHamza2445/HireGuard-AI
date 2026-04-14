@@ -3,7 +3,7 @@ import User from '../models/User.js';
 
 // Generate JWT Function
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET || 'hireguard_fallback_secret_9942', {
+    return jwt.sign({ id: id.toString() }, process.env.JWT_SECRET || 'hireguard_fallback_secret_9942', {
         expiresIn: '30d',
     });
 };

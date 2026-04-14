@@ -30,7 +30,7 @@ You must ask exactly ONE moderately difficult technical question related to one 
 Be professional, welcoming, and concise. Do not give away the answer. Start by welcoming them.`;
 
             const response = await openai.chat.completions.create({
-                model: "mistralai/mistral-7b-instruct",
+                model: "mistralai/mistral-7b-instruct:free",
                 messages: [{ role: "system", content: initialSystemPrompt }],
             });
 
@@ -64,7 +64,7 @@ If you have asked 3 distinct technical questions already, state clearly: "INTERV
         ];
 
         const response = await openai.chat.completions.create({
-            model: "mistralai/mistral-7b-instruct",
+            model: "mistralai/mistral-7b-instruct:free",
             messages: messagesForAI,
         });
 
@@ -129,7 +129,7 @@ ${JSON.stringify(candidate.interviewTranscript)}
 `;
 
         const response = await openai.chat.completions.create({
-            model: "mistralai/mistral-7b-instruct",
+            model: "mistralai/mistral-7b-instruct:free",
             messages: [{ role: "system", content: systemPrompt }],
             response_format: { type: "json_object" }
         });
