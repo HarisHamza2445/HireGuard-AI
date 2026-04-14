@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply antialiased bg-gray-950 text-gray-50;
+        font-family: 'Outfit', sans-serif;
+    }
+}
+
+/* Custom Utilities for Ultra Premium UI */
+@layer utilities {
+    .glass-card {
+        @apply bg-slate-900/40 backdrop-blur-xl border border-slate-700/50;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .glass-card-hover {
+        @apply hover:bg-slate-800/50 hover:border-slate-600/50 transition-all duration-300;
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r;
+    }
+
+    .animate-slow-spin {
+        animation: spin 12s linear infinite;
+    }
+
+    .blob {
+        @apply absolute rounded-full mix-blend-screen filter blur-[80px] opacity-40 animate-slow-spin pointer-events-none;
+    }
+
+    /* Custom elegant scrollbar for inner content areas */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(15, 23, 42, 0.3);
+        border-radius: 8px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(99, 102, 241, 0.4);
+        border-radius: 8px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(99, 102, 241, 0.7);
+    }
+}
