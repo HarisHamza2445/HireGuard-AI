@@ -50,7 +50,7 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static(frontendPath));
 
     // For any request that doesn't match an API route, serve index.html
-    app.get("(.*)", (req, res) => {
+    app.get("*splat", (req, res) => {
         res.sendFile(path.resolve(frontendPath, "index.html"));
     });
 }
