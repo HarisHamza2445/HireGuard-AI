@@ -7,7 +7,7 @@ export const resumeAgent = async (resumeText) => {
     });
 
     const response = await openai.chat.completions.create({
-        model: process.env.AI_MODEL || "google/gemma-2-9b-it:free",
+        model: process.env.AI_MODEL || "google/gemma-3-4b-it:free",
         messages: [
             {
                 role: "system",
@@ -16,7 +16,7 @@ You are an expert AI Resume Forensic Agent and Technical Recruiter.
 
 Extract a structured JSON profile from the resume text. You must also perform a deep Fraud and Risk analysis. Look for skill exaggeration, timeframe impossibilities, and keyword padding.
 
-Return STRICTLY this JSON format:
+Return STRICTLY this JSON format (no other text, no markdown code blocks):
 {
   "name": "",
   "companies": ["Company A", "Company B"],
@@ -33,14 +33,13 @@ Return STRICTLY this JSON format:
     ]
   }
 }
-Only return valid JSON without markdown wrapping.`
+Only return valid JSON.`
             },
             {
                 role: "user",
                 content: resumeText,
             },
         ],
-        response_format: { type: "json_object" },
     });
 
     return JSON.parse(response.choices[0].message.content);
