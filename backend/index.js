@@ -19,7 +19,21 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 app.use(cors({
-    origin: process.env.CLIENT_URL || ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175"],
+    origin: function(origin, callback) {
+        // Allow requests with no origin (like mobile apps, curl, etc.)
+        if (!origin) return callback(null, true);
+        // Allow all in production OR allow specific localhost in development
+        const allowedOrigins = [
+            process.env.CLIENT_URL,
+            "http://localhost:5173",
+            "http://localhost:5174",
+            "http://localhost:5175",
+        ].filter(Boolean);
+        if (process.env.NODE_ENV === "production" || allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        return callback(new Error("CORS not allowed"));
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 }));
