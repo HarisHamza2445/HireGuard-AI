@@ -17,7 +17,10 @@ export const protect = async (req, res, next) => {
 
             if (!req.user) {
                 console.warn(`[Auth Warning] User not found for ID: ${decoded.id}`);
-                return res.status(401).json({ success: false, message: 'Not authorized, user missing' });
+                return res.status(401).json({ 
+                    success: false, 
+                    message: 'User not found. Your session may be from a different database. Please log out and register a new account.' 
+                });
             }
 
             console.log(`[Auth Success] User found: ${req.user.email}`);
