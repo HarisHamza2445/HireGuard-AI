@@ -6,6 +6,7 @@
 [![OpenAI](https://img.shields.io/badge/AI-OpenAI-orange?style=flat-square&logo=openai)](https://openai.com/)
 
 **HireGuard AI** is a premium, AI-powered recruitment platform designed to automate the heavy lifting of candidate verification and interviewing. By leveraging an advanced **Agentic Orchestrator**, HireGuard AI provides deep insights into candidate credibility, technical skills, and risk profiles before you even hop on a call.
+<img width="1440" height="809" alt="Screenshot 2026-04-23 at 10 43 15 PM" src="https://github.com/user-attachments/assets/0b226a38-55d4-4811-9884-25c966c73676" />
 
 ---
 
